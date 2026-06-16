@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Market Predictor</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Ein paar coole Neon-Effekte für den Cyberpunk-Vibe */
+        .neon-border {
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+        }
+        .neon-text {
+            text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <i data-lucide="cpu" class="text-purple-500 w-8 h-8"></i>
+            <span class="text-xl font-bold tracking-wider neon-text text-purple-400">NEXT-GEN <span class="text-white">AI-PREDICT</span></span>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-semibold transition duration-200 shadow-lg shadow-purple-600/30">
+                Premium Abo abschließen
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        
+        <section class="mb-12 text-center md:text-left md:flex justify-between items-center bg-gradient-to-r from-slate-900 to-purple-950/40 p-8 rounded-2xl border border-slate-800/80">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-extrabold mb-3">KI-Aktienmarkt-Vorhersage</h1>
+                <p class="text-slate-400 max-w-2xl">Unsere künstliche Intelligenz analysiert rund um die Uhr weltweite Marktdaten und berechnet prozentuale Trend-Wahrscheinlichkeiten für die kommenden Tage.</p>
+            </div>
+            <div class="mt-6 md:mt-0 flex gap-4 justify-center">
+                <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-center min-w-[120px]">
+                    <div class="text-2xl font-bold text-purple-400">1.000+</div>
+                    <div class="text-xs text-slate-500 uppercase mt-1">Aktien im Index</div>
+                </div>
+                <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-center min-w-[120px]">
+                    <div class="text-2xl font-bold text-green-400">94.2%</div>
+                    <div class="text-xs text-slate-500 uppercase mt-1">KI-Aktivität</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <div class="relative max-w-md mx-auto md:mx-0">
+                <i data-lucide="search" class="absolute left-4 top-3.5 text-slate-500 w-5 h-5"></i>
+                <input type="text" placeholder="Durchsuche alle 1.000+ Aktien..." 
+                       class="w-full bg-slate-900 border border-slate-800 rounded-xl py-3 pl-12 pr-4 text-slate-200 focus:outline-none focus:border-purple-500 transition duration-200">
+            </div>
+        </section>
+
+        <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+            <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                <h2 class="text-lg font-bold flex items-center gap-2">
+                    <i data-lucide="trending-up" class="text-green-400 w-5 h-5"></i> Top 100 KI-Empfehlungen
+                </h2>
+                <span class="text-xs bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-700">Live Daten</span>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-800 text-slate-400 text-sm uppercase bg-slate-950/40">
+                            <th class="py-4 px-6">Kürzel / Name</th>
+                            <th class="py-4 px-6">Aktueller Kurs</th>
+                            <th class="py-4 px-6">24h Änderung</th>
+                            <th class="py-4 px-6 text-right">KI-Vorhersage (Trend)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/50 text-sm">
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold">
+                                <div class="text-white">NVDA</div>
+                                <div class="text-xs text-slate-500">NVIDIA Corp.</div>
+                            </td>
+                            <td class="py-4 px-6 font-mono">$128.45</td>
+                            <td class="py-4 px-6 text-green-400 font-mono">+3.42%</td>
+                            <td class="py-4 px-6 text-right font-bold text-green-400 font-mono flex items-center justify-end gap-1">
+                                <i data-lucide="chevrons-up" class="w-4 h-4"></i> +87.5% Up
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold">
+                                <div class="text-white">AAPL</div>
+                                <div class="text-xs text-slate-500">Apple Inc.</div>
+                            </td>
+                            <td class="py-4 px-6 font-mono">$185.20</td>
+                            <td class="py-4 px-6 text-red-400 font-mono">-0.12%</td>
+                            <td class="py-4 px-6 text-right font-bold text-green-400 font-mono flex items-center justify-end gap-1">
+                                <i data-lucide="chevron-up" class="w-4 h-4"></i> +62.1% Up
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold">
+                                <div class="text-white">TSLA</div>
+                                <div class="text-xs text-slate-500">Tesla Inc.</div>
+                            </td>
+                            <td class="py-4 px-6 font-mono">$170.50</td>
+                            <td class="py-4 px-6 text-green-400 font-mono">+1.85%</td>
+                            <td class="py-4 px-6 text-right font-bold text-red-400 font-mono flex items-center justify-end gap-1">
+                                <i data-lucide="chevron-down" class="w-4 h-4"></i> -45.8% Down
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-800/30 transition">
+                            <td class="py-4 px-6 font-semibold">
+                                <div class="text-white">MSFT</div>
+                                <div class="text-xs text-slate-500">Microsoft Corp.</div>
+                            </td>
+                            <td class="py-4 px-6 font-mono">$420.10</td>
+                            <td class="py-4 px-6 text-slate-400 font-mono">0.00%</td>
+                            <td class="py-4 px-6 text-right font-bold text-green-400 font-mono flex items-center justify-end gap-1">
+                                <i data-lucide="chevron-up" class="w-4 h-4"></i> +74.3% Up
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-950 border-t border-slate-800 mt-20 py-8 px-6 text-center text-xs text-slate-500">
+        <div class="max-w-4xl mx-auto space-y-3">
+            <p class="font-bold uppercase text-slate-400 tracking-wider">Deutlicher Haftungsausschluss (Disclaimer)</p>
+            <p>Die von dieser KI-gestützten Anwendung bereitgestellten Inhalte, prozentualen Vorhersagen und Analysen dienen ausschließlich zu Informationszwecken und stellen keine Finanz-, Investitions- oder persönliche Anlageberatung dar. Der Handel mit Aktien und Finanzprodukten birgt erhebliche Verlustrisiken bis hin zum Totalverlust des eingesetzten Kapitals. Es gibt keine Garantie für die Richtigkeit oder das Eintreffen der KI-Prognosen.</p>
+            <p>&copy; 2026 NEXT-GEN AI-PREDICT. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="chat-toggle" class="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-xl shadow-purple-600/20 cursor-pointer transition transform hover:scale-105 flex items-center justify-center neon-border">
+            <i data-lucide="message-square" class="w-6 h-6"></i>
+        </button>
+
+        <div id="chat-window" class="hidden absolute bottom-16 right-0 w-80 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="bg-purple-900/60 p-4 border-b border-slate-800 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span class="font-bold text-sm">Support-Chat</span>
+                </div>
+                <button id="chat-close" class="text-slate-400 hover:text-white cursor-pointer">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="p-4 h-48 overflow-y-auto space-y-3 text-xs flex flex-col justify-end">
+                <div class="bg-slate-800 text-slate-200 p-2.5 rounded-xl rounded-tl-none max-w-[85%]">
+                    Hallo! Wie kann ich dir bei Fragen zum AI-Predictor oder deinem Abo helfen?
+                </div>
+            </div>
+            <div class="p-3 border-t border-slate-800 bg-slate-950/50 flex gap-2">
+                <input type="text" placeholder="Nachricht schreiben..." class="w-full bg-slate-800 text-xs text-white rounded-lg px-3 py-2 border border-slate-700 focus:outline-none focus:border-purple-500">
+                <button class="bg-purple-600 p-2 rounded-lg text-white"><i data-lucide="send" class="w-3.5 h-3.5"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Icons laden
+        lucide.createIcons();
+
+        // Chat Open/Close Logik
+        const toggleBtn = document.getElementById('chat-toggle');
+        const closeBtn = document.getElementById('chat-close');
+        const chatWindow = document.getElementById('chat-window');
+
+        toggleBtn.addEventListener('click', () => {
+            chatWindow.classList.toggle('hidden');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            chatWindow.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
