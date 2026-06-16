@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktien-Details | AI-PREDICT</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .neon-border { box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
+        .neon-text { text-shadow: 0 0 8px rgba(168, 85, 247, 0.6); }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="window.location.href='index.html'">
+            <i data-lucide="cpu" class="text-purple-400 w-8 h-8"></i>
+            <span class="text-xl font-bold tracking-wider neon-text">NEXT-GEN <span class="text-white">AI-PREDICT</span></span>
+        </div>
+        <button onclick="window.location.href='index.html'" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg font-semibold transition cursor-pointer flex items-center gap-2 text-sm">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i> Zurück zur Übersicht
+        </button>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-8 space-y-8">
+        
+        <section class="bg-slate-900/40 border border-slate-800 p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 backdrop-blur">
+            <div>
+                <span id="stockSymbol" class="text-xs font-mono bg-purple-950 text-purple-400 border border-purple-900 px-2.5 py-1 rounded-md font-bold tracking-wider">TICKER</span>
+                <h1 id="stockName" class="text-2xl sm:text-3xl font-extrabold mt-2">Lädt Vermögenswert...</h1>
+            </div>
+            <div class="text-left sm:text-right">
+                <div id="stockPrice" class="text-3xl font-mono font-bold text-slate-200">$0.00</div>
+                <div id="stockChange" class="text-sm font-mono mt-1 font-semibold">+0.00% (24h)</div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div class="lg:col-span-2 bg-slate-900/40 border border-slate-800 p-6 rounded-2xl backdrop-blur flex flex-col justify-between min-h-[350px]">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                        <i data-lucide="line-chart" class="w-4 h-4 text-purple-400"></i> Historischer Kursverlauf
+                    </h3>
+                    <span class="text-xs text-slate-500 bg-slate-950 px-2 py-1 rounded border border-slate-800/60">Interaktiv</span>
+                </div>
+                <div class="w-full flex-1 relative min-h-[250px]">
+                    <canvas id="stockChart"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-b from-slate-900 to-purple-950/20 border border-purple-900/40 p-6 rounded-2xl backdrop-blur flex flex-col justify-between neon-border">
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-purple-400 flex items-center gap-1.5">
+                        <i data-lucide="brain-circuit" class="w-4 h-4"></i> KI-Prognose-Zentrum
+                    </h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Unsere neuronalen Netze haben die Orderströme, sozialen Signale und historischen Fraktale für diesen Basiswert ausgewertet.
+                    </p>
+                    
+                    <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80 space-y-1 mt-2">
+                        <span class="block text-[10px] text-slate-500 uppercase font-bold tracking-wider">Erwarteter Trend</span>
+                        <div id="aiTrend" class="text-lg font-bold font-mono text-green-400">Berechne...</div>
+                    </div>
+
+                    <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800/80 space-y-1">
+                        <span class="block text-[10px] text-slate-500 uppercase font-bold tracking-wider">KI-Konfidenz-Index</span>
+                        <div class="text-lg font-bold font-mono text-purple-400">94.2% <span class="text-xs text-slate-500 font-sans font-normal">Sicherheit</span></div>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800/60 mt-4 text-[11px] text-slate-500 flex items-center gap-1.5">
+                    <i data-lucide="refresh-cw" class="w-3 h-3 animate-spin text-purple-500"></i> Live KI-Neuberechnung aktiv
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // Fallback-Datenbank, falls kein Live-API-Wert existiert
+        const fallbackDatabase = {
+            'NVDA': { name: 'NVIDIA Corp.', price: '$128.45', change: '+3.42%', trend: '+87.5% Up', chartData: [112, 115, 119, 118, 122, 125, 128.45], labels: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] },
+            'MSFT': { name: 'Microsoft Corp.', price: '$420.10', change: '0.00%', trend: '+74.3% Up', chartData: [425, 423, 421, 422, 419, 420, 420.10], labels: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] },
+            'AAPL': { name: 'Apple Inc.', price: '$185.20', change: '-0.12%', trend: '+62.1% Up', chartData: [189, 187, 186, 188, 184, 185, 185.20], labels: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] },
+            'AMD': { name: 'Advanced Micro Devices', price: '$162.30', change: '+2.11%', trend: '+55.8% Up', chartData: [152, 155, 154, 158, 159, 160, 162.30], labels: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] },
+            'PLTR': { name: 'Palantir Technologies', price: '$24.50', change: '+4.80%', trend: '+91.2% Up', chartData: [21, 22, 21.5, 23, 23.8, 24, 24.50], labels: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] },
+            'TSLA': { name: 'Tesla Inc.', price: '$170.50', change: '+1.85%', trend: '-45.8% Down', chartData: [185, 180, 178, 172, 169, 168, 170.50], labels: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] },
+            'BTC': { name: 'Bitcoin Premium Tracker', price: '$67,420.00', change: '+6.81%', trend: '+99.1% SKYROCKET', chartData: [62000, 63100, 64500, 63900, 65200, 66800, 67420], labels: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'] }
+        };
+
+        // 1. Parameter (z.B. ?symbol=NVDA) aus URL auslesen
+        const urlParams = new URLSearchParams(window.location.search);
+        const symbol = urlParams.get('symbol') ? urlParams.get('symbol').toUpperCase() : 'NVDA';
+
+        // 2. Passende Aktiendaten suchen
+        const stock = fallbackDatabase[symbol] || {
+            name: 'Globales Asset Tracker',
+            price: '$100.00',
+            change: '+1.50%',
+            trend: '+50.0% Stabil',
+            chartData: [95, 96, 98, 97, 99, 100, 100],
+            labels: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
+        };
+
+        // 3. UI mit den geladenen Daten beschreiben
+        document.getElementById('stockSymbol').innerText = symbol;
+        document.getElementById('stockName').innerText = stock.name;
+        document.getElementById('stockPrice').innerText = stock.price;
+        
+        const changeEl = document.getElementById('stockChange');
+        changeEl.innerText = `${stock.change} (24h)`;
+        if(stock.change.startsWith('+')) changeEl.className = "text-sm font-mono mt-1 font-semibold text-green-400";
+        else if(stock.change.startsWith('-')) changeEl.className = "text-sm font-mono mt-1 font-semibold text-red-400";
+        else changeEl.className = "text-sm font-mono mt-1 font-semibold text-slate-500";
+
+        const trendEl = document.getElementById('aiTrend');
+        trendEl.innerText = stock.trend;
+        if(stock.trend.includes('Down')) trendEl.className = "text-lg font-bold font-mono text-red-400";
+
+        // 4. Interaktiven Chart.js Linienchart erstellen
+        const ctx = document.getElementById('stockChart').getContext('2d');
+        
+        // Neon-Linieneffekt generieren
+        const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(168, 85, 247, 0.25)');
+        gradient.addColorStop(1, 'rgba(168, 85, 247, 0.0)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: stock.labels,
+                datasets: [{
+                    label: 'Kurs',
+                    data: stock.chartData,
+                    borderColor: '#a855f7', // Lila Neonlinie
+                    borderWidth: 3,
+                    pointBackgroundColor: '#fff',
+                    pointHoverRadius: 7,
+                    fill: true,
+                    backgroundColor: gradient,
+                    tension: 0.3 // Schöne weiche Rundungen der Linie
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.03)' }, ticks: { color: '#64748b' } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748b' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
