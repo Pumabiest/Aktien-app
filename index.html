@@ -7,24 +7,29 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Ein paar coole Neon-Effekte für den Cyberpunk-Vibe */
-        .neon-border {
-            box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
-        }
-        .neon-text {
-            text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
-        }
+        .neon-border { box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); }
+        .neon-text { text-shadow: 0 0 8px rgba(168, 85, 247, 0.6); }
+        .neon-border-admin { box-shadow: 0 0 15px rgba(239, 68, 68, 0.5); }
+        .neon-text-admin { text-shadow: 0 0 10px rgba(239, 68, 68, 0.7); }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
 
+    <!-- HEADER -->
     <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40 px-6 py-4 flex justify-between items-center">
         <div class="flex items-center gap-2">
-            <i data-lucide="cpu" class="text-purple-500 w-8 h-8"></i>
-            <span class="text-xl font-bold tracking-wider neon-text text-purple-400">NEXT-GEN <span class="text-white">AI-PREDICT</span></span>
+            <i data-lucide="cpu" class="text-purple-400 w-8 h-8"></i>
+            <span class="text-xl font-bold tracking-wider neon-text">NEXT-GEN <span class="text-white">AI-PREDICT</span></span>
         </div>
         <div class="flex items-center gap-4">
-            <button class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-semibold transition duration-200 shadow-lg shadow-purple-600/30">
+            <!-- Admin Status Anzeige -->
+            <div id="adminBadge" class="hidden bg-red-950/80 border border-red-500 text-red-400 px-3 py-1.5 rounded-lg font-bold text-xs uppercase tracking-widest neon-border-admin">
+                <i data-lucide="shield" class="w-3.5 h-3.5 inline mr-1 align-middle"></i> Admin Modus
+            </div>
+            <button onclick="toggleLoginModal()" id="loginBtn" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg font-semibold transition cursor-pointer flex items-center gap-2">
+                <i data-lucide="lock" class="w-4 h-4"></i> Admin Login
+            </button>
+            <button class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-semibold transition cursor-pointer">
                 Premium Abo abschließen
             </button>
         </div>
@@ -32,10 +37,11 @@
 
     <main class="max-w-7xl mx-auto px-4 py-8">
         
-        <section class="mb-12 text-center md:text-left md:flex justify-between items-center bg-gradient-to-r from-slate-900 to-purple-950/40 p-8 rounded-2xl border border-slate-800/80">
+        <!-- HERO SECTION -->
+        <section class="mb-12 text-center md:text-left md:flex justify-between items-center bg-gradient-to-r from-slate-900 to-purple-950/20 p-8 rounded-2xl border border-slate-800/60">
             <div>
                 <h1 class="text-3xl md:text-4xl font-extrabold mb-3">KI-Aktienmarkt-Vorhersage</h1>
-                <p class="text-slate-400 max-w-2xl">Unsere künstliche Intelligenz analysiert rund um die Uhr weltweite Marktdaten und berechnet prozentuale Trend-Wahrscheinlichkeiten für die kommenden Tage.</p>
+                <p class="text-slate-400 max-w-2xl text-lg">Unsere künstliche Intelligenz analysiert rund um die Uhr weltweite Marktdaten und berechnet prozentuale Trend-Wahrscheinlichkeiten.</p>
             </div>
             <div class="mt-6 md:mt-0 flex gap-4 justify-center">
                 <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-center min-w-[120px]">
@@ -49,133 +55,212 @@
             </div>
         </section>
 
-        <section class="mb-8">
-            <div class="relative max-w-md mx-auto md:mx-0">
-                <i data-lucide="search" class="absolute left-4 top-3.5 text-slate-500 w-5 h-5"></i>
-                <input type="text" placeholder="Durchsuche alle 1.000+ Aktien..." 
-                       class="w-full bg-slate-900 border border-slate-800 rounded-xl py-3 pl-12 pr-4 text-slate-200 focus:outline-none focus:border-purple-500 transition duration-200">
+        <!-- ADMIN DASHBOARD (NUR FÜR ADMINS SICHTBAR) -->
+        <section id="adminDashboard" class="hidden mb-12 bg-slate-900 border border-red-900/60 rounded-2xl p-6 neon-border-admin">
+            <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-3">
+                <i data-lucide="terminal" class="text-red-500 w-6 h-6"></i>
+                <h2 class="text-xl font-bold text-red-400 neon-text-admin">Zentrales Admin-Kontrollzentrum</h2>
+            </div>
+            <p class="text-sm text-slate-400 mb-6">Willkommen zurück, Commander. Hier sind deine exklusiven Server-Metriken und erweiterten System-Optionen:</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <div class="text-xs uppercase text-slate-500 font-semibold mb-1">Server-Auslastung</div>
+                    <div class="text-lg font-mono text-green-400">STABIL (14% CPU)</div>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <div class="text-xs uppercase text-slate-500 font-semibold mb-1">KI-Rohdaten-Stream</div>
+                    <div class="text-lg font-mono text-purple-400">AKTIV (412 req/m)</div>
+                </div>
+                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                    <div class="text-xs uppercase text-slate-500 font-semibold mb-1">Datenbank-Synchronisation</div>
+                    <div class="text-lg font-mono text-blue-400">100% UP TO DATE</div>
+                </div>
             </div>
         </section>
 
-        <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
-            <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
-                <h2 class="text-lg font-bold flex items-center gap-2">
-                    <i data-lucide="trending-up" class="text-green-400 w-5 h-5"></i> Top 100 KI-Empfehlungen
-                </h2>
-                <span class="text-xs bg-slate-800 text-slate-400 px-3 py-1 rounded-full border border-slate-700">Live Daten</span>
+        <!-- MAIN APP CONTENT -->
+        <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 backdrop-blur">
+            <div class="mb-6 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
+                <div class="relative flex-1 max-w-md">
+                    <i data-lucide="search" class="absolute left-3.5 top-3 text-slate-500 w-5 h-5"></i>
+                    <input type="text" placeholder="Durchsuche alle 1.000+ Aktien..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-11 pr-4 py-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500 transition">
+                </div>
+                <div class="flex items-center justify-end">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-400 border border-slate-700/50">
+                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Live Daten
+                    </span>
+                </div>
             </div>
-            
+
+            <!-- TABLE -->
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-slate-800 text-slate-400 text-sm uppercase bg-slate-950/40">
-                            <th class="py-4 px-6">Kürzel / Name</th>
-                            <th class="py-4 px-6">Aktueller Kurs</th>
-                            <th class="py-4 px-6">24h Änderung</th>
-                            <th class="py-4 px-6 text-right">KI-Vorhersage (Trend)</th>
+                        <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase tracking-wider font-semibold">
+                            <th class="py-4 px-4">Kürzel / Name</th>
+                            <th class="py-4 px-4">Aktueller Kurs</th>
+                            <th class="py-4 px-4">24h Änderung</th>
+                            <th class="py-4 px-4">KI-Vorhersage (Trend)</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800/50 text-sm">
-                        <tr class="hover:bg-slate-800/30 transition">
-                            <td class="py-4 px-6 font-semibold">
-                                <div class="text-white">NVDA</div>
-                                <div class="text-xs text-slate-500">NVIDIA Corp.</div>
-                            </td>
-                            <td class="py-4 px-6 font-mono">$128.45</td>
-                            <td class="py-4 px-6 text-green-400 font-mono">+3.42%</td>
-                            <td class="py-4 px-6 text-right font-bold text-green-400 font-mono flex items-center justify-end gap-1">
-                                <i data-lucide="chevrons-up" class="w-4 h-4"></i> +87.5% Up
-                            </td>
+                    <tbody id="stockTableBody" class="divide-y divide-slate-800/40 text-sm">
+                        <!-- Standard-Aktien -->
+                        <tr class="hover:bg-slate-800/20 transition">
+                            <td class="py-4 px-4 font-medium"><span class="block text-slate-200 font-bold">NVDA</span><span class="text-xs text-slate-500">NVIDIA Corp.</span></td>
+                            <td class="py-4 px-4 font-mono text-slate-300">$128.45</td>
+                            <td class="py-4 px-4 font-mono text-green-400">+3.42%</td>
+                            <td class="py-4 px-4 font-mono text-green-400 font-bold"><i data-lucide="trending-up" class="w-4 h-4 inline mr-1 align-middle"></i> +87.5% Up</td>
                         </tr>
-                        <tr class="hover:bg-slate-800/30 transition">
-                            <td class="py-4 px-6 font-semibold">
-                                <div class="text-white">AAPL</div>
-                                <div class="text-xs text-slate-500">Apple Inc.</div>
-                            </td>
-                            <td class="py-4 px-6 font-mono">$185.20</td>
-                            <td class="py-4 px-6 text-red-400 font-mono">-0.12%</td>
-                            <td class="py-4 px-6 text-right font-bold text-green-400 font-mono flex items-center justify-end gap-1">
-                                <i data-lucide="chevron-up" class="w-4 h-4"></i> +62.1% Up
-                            </td>
+                        <tr class="hover:bg-slate-800/20 transition">
+                            <td class="py-4 px-4 font-medium"><span class="block text-slate-200 font-bold">AAPL</span><span class="text-xs text-slate-500">Apple Inc.</span></td>
+                            <td class="py-4 px-4 font-mono text-slate-300">$185.20</td>
+                            <td class="py-4 px-4 font-mono text-red-400">-0.12%</td>
+                            <td class="py-4 px-4 font-mono text-green-400 font-bold"><i data-lucide="trending-up" class="w-4 h-4 inline mr-1 align-middle"></i> +62.1% Up</td>
                         </tr>
-                        <tr class="hover:bg-slate-800/30 transition">
-                            <td class="py-4 px-6 font-semibold">
-                                <div class="text-white">TSLA</div>
-                                <div class="text-xs text-slate-500">Tesla Inc.</div>
-                            </td>
-                            <td class="py-4 px-6 font-mono">$170.50</td>
-                            <td class="py-4 px-6 text-green-400 font-mono">+1.85%</td>
-                            <td class="py-4 px-6 text-right font-bold text-red-400 font-mono flex items-center justify-end gap-1">
-                                <i data-lucide="chevron-down" class="w-4 h-4"></i> -45.8% Down
-                            </td>
+                        <tr class="hover:bg-slate-800/20 transition">
+                            <td class="py-4 px-4 font-medium"><span class="block text-slate-200 font-bold">TSLA</span><span class="text-xs text-slate-500">Tesla Inc.</span></td>
+                            <td class="py-4 px-4 font-mono text-slate-300">$170.50</td>
+                            <td class="py-4 px-4 font-mono text-green-400">+1.85%</td>
+                            <td class="py-4 px-4 font-mono text-red-400 font-bold"><i data-lucide="trending-down" class="w-4 h-4 inline mr-1 align-middle"></i> -45.8% Down</td>
                         </tr>
-                        <tr class="hover:bg-slate-800/30 transition">
-                            <td class="py-4 px-6 font-semibold">
-                                <div class="text-white">MSFT</div>
-                                <div class="text-xs text-slate-500">Microsoft Corp.</div>
-                            </td>
-                            <td class="py-4 px-6 font-mono">$420.10</td>
-                            <td class="py-4 px-6 text-slate-400 font-mono">0.00%</td>
-                            <td class="py-4 px-6 text-right font-bold text-green-400 font-mono flex items-center justify-end gap-1">
-                                <i data-lucide="chevron-up" class="w-4 h-4"></i> +74.3% Up
-                            </td>
+                        <tr class="hover:bg-slate-800/20 transition">
+                            <td class="py-4 px-4 font-medium"><span class="block text-slate-200 font-bold">MSFT</span><span class="text-xs text-slate-500">Microsoft Corp.</span></td>
+                            <td class="py-4 px-4 font-mono text-slate-300">$420.10</td>
+                            <td class="py-4 px-4 font-mono text-slate-500">0.00%</td>
+                            <td class="py-4 px-4 font-mono text-green-400 font-bold"><i data-lucide="trending-up" class="w-4 h-4 inline mr-1 align-middle"></i> +74.3% Up</td>
+                        </tr>
+                        
+                        <!-- VERSTECKTE ADMIN AKTIEN (Werden nur eingeblendet, wenn Admin eingeloggt ist) -->
+                        <tr id="adminStock1" class="hidden bg-red-950/10 hover:bg-red-950/20 transition border-l-2 border-red-500">
+                            <td class="py-4 px-4 font-medium"><span class="block text-red-400 font-bold">⚠️ BTC (SECRET)</span><span class="text-xs text-slate-500">Bitcoin Premium Tracker</span></td>
+                            <td class="py-4 px-4 font-mono text-slate-300">$67,420.00</td>
+                            <td class="py-4 px-4 font-mono text-green-400">+6.81%</td>
+                            <td class="py-4 px-4 font-mono text-purple-400 font-bold neon-text-admin"><i data-lucide="zap" class="w-4 h-4 inline mr-1 align-middle"></i> +99.1% SKYROCKET</td>
+                        </tr>
+                        <tr id="adminStock2" class="hidden bg-red-950/10 hover:bg-red-950/20 transition border-l-2 border-red-500">
+                            <td class="py-4 px-4 font-medium"><span class="block text-red-400 font-bold">⚠️ AI-X (SECRET)</span><span class="text-xs text-slate-500">Geheimer Tech-Meme-Fonds</span></td>
+                            <td class="py-4 px-4 font-mono text-slate-300">$13.37</td>
+                            <td class="py-4 px-4 font-mono text-green-400">+24.50%</td>
+                            <td class="py-4 px-4 font-mono text-purple-400 font-bold neon-text-admin"><i data-lucide="zap" class="w-4 h-4 inline mr-1 align-middle"></i> +95.4% INSIDER UP</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-        </section>
+        </div>
     </main>
 
-    <footer class="bg-slate-950 border-t border-slate-800 mt-20 py-8 px-6 text-center text-xs text-slate-500">
-        <div class="max-w-4xl mx-auto space-y-3">
-            <p class="font-bold uppercase text-slate-400 tracking-wider">Deutlicher Haftungsausschluss (Disclaimer)</p>
-            <p>Die von dieser KI-gestützten Anwendung bereitgestellten Inhalte, prozentualen Vorhersagen und Analysen dienen ausschließlich zu Informationszwecken und stellen keine Finanz-, Investitions- oder persönliche Anlageberatung dar. Der Handel mit Aktien und Finanzprodukten birgt erhebliche Verlustrisiken bis hin zum Totalverlust des eingesetzten Kapitals. Es gibt keine Garantie für die Richtigkeit oder das Eintreffen der KI-Prognosen.</p>
-            <p>&copy; 2026 NEXT-GEN AI-PREDICT. Alle Rechte vorbehalten.</p>
-        </div>
-    </footer>
-
-    <div class="fixed bottom-6 right-6 z-50">
-        <button id="chat-toggle" class="bg-purple-600 hover:bg-purple-700 text-white p-4 rounded-full shadow-xl shadow-purple-600/20 cursor-pointer transition transform hover:scale-105 flex items-center justify-center neon-border">
-            <i data-lucide="message-square" class="w-6 h-6"></i>
-        </button>
-
-        <div id="chat-window" class="hidden absolute bottom-16 right-0 w-80 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-            <div class="bg-purple-900/60 p-4 border-b border-slate-800 flex justify-between items-center">
-                <div class="flex items-center gap-2">
-                    <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                    <span class="font-bold text-sm">Support-Chat</span>
+    <!-- LOGIN MODAL POPUP -->
+    <div id="loginModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex justify-center items-center p-4">
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-sm w-full neon-border relative">
+            <button onclick="toggleLoginModal()" class="absolute top-4 right-4 text-slate-500 hover:text-slate-300 cursor-pointer">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-purple-950/50 border border-purple-500 rounded-full flex justify-center items-center mx-auto mb-3 text-purple-400 neon-text">
+                    <i data-lucide="shield-alert" class="w-6 h-6"></i>
                 </div>
-                <button id="chat-close" class="text-slate-400 hover:text-white cursor-pointer">
-                    <i data-lucide="x" class="w-4 h-4"></i>
+                <h3 class="text-xl font-bold text-slate-100">Zentral-Login</h3>
+                <p class="text-xs text-slate-500 mt-1">Nur für autorisierte System-Administratoren</p>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">System-Passwort</label>
+                    <input type="password" id="passwordInput" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-purple-500 font-mono">
+                </div>
+                <div id="loginError" class="hidden text-xs text-red-400 font-medium">❌ Falsches Passwort. Zugriff verweigert.</div>
+                <button onclick="checkPassword()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2.5 rounded-xl font-semibold transition cursor-pointer shadow-lg shadow-purple-900/20">
+                    Verifizieren
                 </button>
-            </div>
-            <div class="p-4 h-48 overflow-y-auto space-y-3 text-xs flex flex-col justify-end">
-                <div class="bg-slate-800 text-slate-200 p-2.5 rounded-xl rounded-tl-none max-w-[85%]">
-                    Hallo! Wie kann ich dir bei Fragen zum AI-Predictor oder deinem Abo helfen?
-                </div>
-            </div>
-            <div class="p-3 border-t border-slate-800 bg-slate-950/50 flex gap-2">
-                <input type="text" placeholder="Nachricht schreiben..." class="w-full bg-slate-800 text-xs text-white rounded-lg px-3 py-2 border border-slate-700 focus:outline-none focus:border-purple-500">
-                <button class="bg-purple-600 p-2 rounded-lg text-white"><i data-lucide="send" class="w-3.5 h-3.5"></i></button>
             </div>
         </div>
     </div>
 
+    <!-- FOOTER -->
+    <footer class="mt-16 border-t border-slate-900 bg-slate-950/60 py-8 px-6 text-center text-xs text-slate-600">
+        <div class="max-w-3xl mx-auto space-y-3">
+            <p class="font-bold tracking-wider text-slate-500">DEUTLICHER HAFTUNGSAUSSCHLUSS (DISCLAIMER)</p>
+            <p>Die von dieser KI-gestützten Anwendung bereitgestellten Inhalte, prozentualen Vorhersagen und Analysen dienen ausschließlich zu Informationszwecken und stellen keine Finanz-, Investitions- oder persönliche Anlageberatung dar. Der Handel mit Aktien und Finanzprodukten birgt erhebliche Verlustrisiken bis hin zum Totalverlust des eingesetzten Kapitals. Es gibt keine Garantie für die Richtigkeit oder das Eintreffen der KI-Prognosen.</p>
+            <p class="pt-2 text-slate-700">© 2026 NEXT-GEN AI-PREDICT. Alle Rechte vorbehalten.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT SYSTEM CONTROLLER -->
     <script>
-        // Icons laden
+        // Icons initialisieren
         lucide.createIcons();
 
-        // Chat Open/Close Logik
-        const toggleBtn = document.getElementById('chat-toggle');
-        const closeBtn = document.getElementById('chat-close');
-        const chatWindow = document.getElementById('chat-window');
+        // Login Modal umschalten (öffnen/schließen)
+        function toggleLoginModal() {
+            const modal = document.getElementById('loginModal');
+            const error = document.getElementById('loginError');
+            const input = document.getElementById('passwordInput');
+            
+            modal.classList.toggle('hidden');
+            error.classList.add('hidden');
+            input.value = '';
+            if(!modal.classList.contains('hidden')) {
+                input.focus();
+            }
+        }
 
-        toggleBtn.addEventListener('click', () => {
-            chatWindow.classList.toggle('hidden');
-        });
+        // Passwort-Prüfung
+        function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput').value;
+            const error = document.getElementById('loginError');
+            
+            // HIER kannst du dein Passwort ändern! Aktuell: admin123
+            if (passwordInput === 'admin123') {
+                activateAdminMode();
+                toggleLoginModal();
+            } else {
+                error.classList.remove('hidden');
+            }
+        }
 
-        closeBtn.addEventListener('click', () => {
-            chatWindow.classList.add('hidden');
+        // Admin-Modus aktivieren
+        function activateAdminMode() {
+            // Dashboard & Badges einblenden
+            document.getElementById('adminDashboard').classList.remove('hidden');
+            document.getElementById('adminBadge').classList.remove('hidden');
+            
+            // Geheime Aktien-Zeilen einblenden
+            document.getElementById('adminStock1').classList.remove('hidden');
+            document.getElementById('adminStock2').classList.remove('hidden');
+            
+            // Login-Button anpassen (wird zum "Logout"-Button)
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.innerHTML = '<i data-lucide="log-out" class="w-4 h-4"></i> Logout';
+            loginBtn.setAttribute('onclick', 'deactivateAdminMode()');
+            loginBtn.classList.replace('bg-slate-800', 'bg-red-950/40');
+            loginBtn.classList.replace('hover:bg-slate-700', 'hover:bg-red-900/40');
+            loginBtn.classList.add('border', 'border-red-900/60', 'text-red-400');
+
+            // Icons neu laden, damit das Logout- und Schild-Icon angezeigt werden
+            lucide.createIcons();
+        }
+
+        // Admin-Modus deaktivieren (Logout)
+        function deactivateAdminMode() {
+            // Alles wieder verstecken
+            document.getElementById('adminDashboard').classList.add('hidden');
+            document.getElementById('adminBadge').classList.add('hidden');
+            document.getElementById('adminStock1').classList.add('hidden');
+            document.getElementById('adminStock2').classList.add('hidden');
+            
+            // Button zurücksetzen
+            const loginBtn = document.getElementById('loginBtn');
+            loginBtn.innerHTML = '<i data-lucide="lock" class="w-4 h-4"></i> Admin Login';
+            loginBtn.setAttribute('onclick', 'toggleLoginModal()');
+            loginBtn.className = "bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg font-semibold transition cursor-pointer flex items-center gap-2";
+            
+            lucide.createIcons();
+        }
+
+        // Enter-Taste im Passwort-Feld abfangen
+        document.getElementById('passwordInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
         });
     </script>
 </body>
