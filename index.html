@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Market Predictor</title>
+    <title>NEXT-GEN AI-PREDICT</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -15,14 +15,12 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
 
-    <!-- HEADER -->
     <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40 px-6 py-4 flex justify-between items-center">
         <div class="flex items-center gap-2">
             <i data-lucide="cpu" class="text-purple-400 w-8 h-8"></i>
             <span class="text-xl font-bold tracking-wider neon-text">NEXT-GEN <span class="text-white">AI-PREDICT</span></span>
         </div>
         <div class="flex items-center gap-4">
-            <!-- Admin Status Anzeige -->
             <div id="adminBadge" class="hidden bg-red-950/80 border border-red-500 text-red-400 px-3 py-1.5 rounded-lg font-bold text-xs uppercase tracking-widest neon-border-admin">
                 <i data-lucide="shield" class="w-3.5 h-3.5 inline mr-1 align-middle"></i> Admin Modus
             </div>
@@ -30,69 +28,87 @@
                 <i data-lucide="lock" class="w-4 h-4"></i> Admin Login
             </button>
             <button class="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-lg font-semibold transition cursor-pointer">
-                Premium Abo abschließen
+                Premium für 8,99€ / Mon.
             </button>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-8">
+    <main class="max-w-7xl mx-auto px-4 py-8 space-y-12">
         
-        <!-- HERO SECTION -->
-        <section class="mb-12 text-center md:text-left md:flex justify-between items-center bg-gradient-to-r from-slate-900 to-purple-950/20 p-8 rounded-2xl border border-slate-800/60">
+        <section class="text-center md:text-left md:flex justify-between items-center bg-gradient-to-r from-slate-900 to-purple-950/20 p-8 rounded-2xl border border-slate-800/60">
             <div>
                 <h1 class="text-3xl md:text-4xl font-extrabold mb-3">KI-Aktienmarkt-Vorhersage</h1>
-                <p class="text-slate-400 max-w-2xl text-lg">Unsere künstliche Intelligenz analysiert rund um die Uhr weltweite Marktdaten und berechnet prozentuale Trend-Wahrscheinlichkeiten.</p>
+                <p class="text-slate-400 max-w-2xl text-lg">Echtzeit-Analyse globaler Marktdaten. Wähle eine Aktie aus, um interaktive Charts und detaillierte Trend-Metriken zu sehen.</p>
             </div>
             <div class="mt-6 md:mt-0 flex gap-4 justify-center">
                 <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-center min-w-[120px]">
                     <div class="text-2xl font-bold text-purple-400">1.000+</div>
-                    <div class="text-xs text-slate-500 uppercase mt-1">Aktien im Index</div>
+                    <div class="text-xs text-slate-500 uppercase mt-1">Indizes</div>
                 </div>
                 <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl text-center min-w-[120px]">
-                    <div class="text-2xl font-bold text-green-400">94.2%</div>
-                    <div class="text-xs text-slate-500 uppercase mt-1">KI-Aktivität</div>
+                    <div class="text-2xl font-bold text-green-400">LIVE</div>
+                    <div class="text-xs text-slate-500 uppercase mt-1">Sync aktiv</div>
                 </div>
             </div>
         </section>
 
-        <!-- ADMIN DASHBOARD (NUR FÜR ADMINS SICHTBAR) -->
-        <section id="adminDashboard" class="hidden mb-12 bg-slate-900 border border-red-900/60 rounded-2xl p-6 neon-border-admin">
-            <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-3">
-                <i data-lucide="terminal" class="text-red-500 w-6 h-6"></i>
-                <h2 class="text-xl font-bold text-red-400 neon-text-admin">Zentrales Admin-Kontrollzentrum</h2>
+        <section id="adminDashboard" class="hidden bg-slate-900 border border-red-900/60 rounded-2xl p-6 neon-border-admin">
+            <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="terminal" class="text-red-500 w-6 h-6"></i>
+                    <h2 class="text-xl font-bold text-red-400 neon-text-admin">Zentrales Admin-Kontrollzentrum</h2>
+                </div>
+                <span class="text-xs font-mono bg-red-950 text-red-400 border border-red-900 px-2 py-1 rounded">ROOT ACCESS</span>
             </div>
-            <p class="text-sm text-slate-400 mb-6">Willkommen zurück, Commander. Hier sind deine exklusiven Server-Metriken und erweiterten System-Optionen:</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <div class="text-xs uppercase text-slate-500 font-semibold mb-1">Server-Auslastung</div>
-                    <div class="text-lg font-mono text-green-400">STABIL (14% CPU)</div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400">System-Überwachung (Punkt 8)</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <span class="block text-xs text-slate-500 uppercase">Registrierte User</span>
+                            <span class="text-xl font-mono text-slate-200">1,482</span>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <span class="block text-xs text-slate-500 uppercase">Premium-Abos</span>
+                            <span class="text-xl font-mono text-purple-400">389</span>
+                        </div>
+                    </div>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                        <span class="block text-xs font-bold text-purple-400 uppercase">Gratis Premium-Rechte vergeben</span>
+                        <div class="flex gap-2">
+                            <input type="text" id="premiumUserEmail" placeholder="Nutzer-E-Mail eingeben..." class="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-purple-500">
+                            <button onclick="grantFreePremium()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition cursor-pointer">Rechte aktivieren</button>
+                        </div>
+                        <p id="premiumSuccessMsg" class="hidden text-xs text-green-400">✓ Premium-Rechte erfolgreich lebenslänglich aktiviert!</p>
+                    </div>
                 </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <div class="text-xs uppercase text-slate-500 font-semibold mb-1">KI-Rohdaten-Stream</div>
-                    <div class="text-lg font-mono text-purple-400">AKTIV (412 req/m)</div>
-                </div>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                    <div class="text-xs uppercase text-slate-500 font-semibold mb-1">Datenbank-Synchronisation</div>
-                    <div class="text-lg font-mono text-blue-400">100% UP TO DATE</div>
+
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold uppercase tracking-wider text-slate-400">Eingegangene Wünsche & Feedback</h3>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 max-h-[180px] overflow-y-auto space-y-3" id="adminFeedbackList">
+                        <div class="text-xs border-b border-slate-900 pb-2">
+                            <span class="text-purple-400 font-semibold">user99@web.de:</span> "Ich wünsche mir mehr Krypto-Optionen im Dashboard!"
+                        </div>
+                        <div class="text-xs border-b border-slate-900 pb-2">
+                            <span class="text-purple-400 font-semibold">leomaster@gmx.at:</span> "Die Vorhersagen für Nvidia waren perfekt. 10/10 App!"
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- MAIN APP CONTENT -->
-        <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 backdrop-blur">
-            <div class="mb-6 flex flex-col sm:flex-row justify-between items-stretch sm:items-center gap-4">
-                <div class="relative flex-1 max-w-md">
+        <div class="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-6 backdrop-blur space-y-4">
+            
+            <div class="relative max-w-md">
+                <div class="relative">
                     <i data-lucide="search" class="absolute left-3.5 top-3 text-slate-500 w-5 h-5"></i>
-                    <input type="text" placeholder="Durchsuche alle 1.000+ Aktien..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-11 pr-4 py-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500 transition">
+                    <input type="text" id="searchInput" oninput="handleSearchInput()" onkeypress="handleSearchKeyPress(event)" placeholder="Suche (z.B. NVDA)... [Drücke Enter]" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-11 pr-4 py-2.5 text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500 transition">
                 </div>
-                <div class="flex items-center justify-end">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-400 border border-slate-700/50">
-                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span> Live Daten
-                    </span>
-                </div>
+                <div id="suggestionsDropdown" class="hidden absolute left-0 right-0 mt-2 bg-slate-950 border border-slate-800 rounded-xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-900">
+                    </div>
             </div>
 
-            <!-- TABLE -->
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
@@ -104,52 +120,63 @@
                         </tr>
                     </thead>
                     <tbody id="stockTableBody" class="divide-y divide-slate-800/40 text-sm">
-                        <!-- Standard-Aktien -->
-                        <tr class="hover:bg-slate-800/20 transition">
+                        <tr onclick="goToDetails('NVDA')" class="hover:bg-slate-800/30 transition cursor-pointer">
                             <td class="py-4 px-4 font-medium"><span class="block text-slate-200 font-bold">NVDA</span><span class="text-xs text-slate-500">NVIDIA Corp.</span></td>
                             <td class="py-4 px-4 font-mono text-slate-300">$128.45</td>
                             <td class="py-4 px-4 font-mono text-green-400">+3.42%</td>
                             <td class="py-4 px-4 font-mono text-green-400 font-bold"><i data-lucide="trending-up" class="w-4 h-4 inline mr-1 align-middle"></i> +87.5% Up</td>
                         </tr>
-                        <tr class="hover:bg-slate-800/20 transition">
+                        <tr onclick="goToDetails('AAPL')" class="hover:bg-slate-800/30 transition cursor-pointer">
                             <td class="py-4 px-4 font-medium"><span class="block text-slate-200 font-bold">AAPL</span><span class="text-xs text-slate-500">Apple Inc.</span></td>
                             <td class="py-4 px-4 font-mono text-slate-300">$185.20</td>
                             <td class="py-4 px-4 font-mono text-red-400">-0.12%</td>
                             <td class="py-4 px-4 font-mono text-green-400 font-bold"><i data-lucide="trending-up" class="w-4 h-4 inline mr-1 align-middle"></i> +62.1% Up</td>
                         </tr>
-                        <tr class="hover:bg-slate-800/20 transition">
+                        <tr onclick="goToDetails('TSLA')" class="hover:bg-slate-800/30 transition cursor-pointer">
                             <td class="py-4 px-4 font-medium"><span class="block text-slate-200 font-bold">TSLA</span><span class="text-xs text-slate-500">Tesla Inc.</span></td>
                             <td class="py-4 px-4 font-mono text-slate-300">$170.50</td>
                             <td class="py-4 px-4 font-mono text-green-400">+1.85%</td>
                             <td class="py-4 px-4 font-mono text-red-400 font-bold"><i data-lucide="trending-down" class="w-4 h-4 inline mr-1 align-middle"></i> -45.8% Down</td>
                         </tr>
-                        <tr class="hover:bg-slate-800/20 transition">
+                        <tr onclick="goToDetails('MSFT')" class="hover:bg-slate-800/30 transition cursor-pointer">
                             <td class="py-4 px-4 font-medium"><span class="block text-slate-200 font-bold">MSFT</span><span class="text-xs text-slate-500">Microsoft Corp.</span></td>
                             <td class="py-4 px-4 font-mono text-slate-300">$420.10</td>
                             <td class="py-4 px-4 font-mono text-slate-500">0.00%</td>
                             <td class="py-4 px-4 font-mono text-green-400 font-bold"><i data-lucide="trending-up" class="w-4 h-4 inline mr-1 align-middle"></i> +74.3% Up</td>
                         </tr>
-                        
-                        <!-- VERSTECKTE ADMIN AKTIEN (Werden nur eingeblendet, wenn Admin eingeloggt ist) -->
-                        <tr id="adminStock1" class="hidden bg-red-950/10 hover:bg-red-950/20 transition border-l-2 border-red-500">
-                            <td class="py-4 px-4 font-medium"><span class="block text-red-400 font-bold">⚠️ BTC (SECRET)</span><span class="text-xs text-slate-500">Bitcoin Premium Tracker</span></td>
+                        <tr id="adminStock1" class="hidden bg-red-950/10 hover:bg-red-950/20 transition cursor-pointer border-l-2 border-red-500" onclick="goToDetails('BTC')">
+                            <td class="py-4 px-4 font-medium"><span class="block text-red-400 font-bold">⚠️ BTC (SECRET)</span><span class="text-xs text-slate-500">Premium Tracker</span></td>
                             <td class="py-4 px-4 font-mono text-slate-300">$67,420.00</td>
                             <td class="py-4 px-4 font-mono text-green-400">+6.81%</td>
                             <td class="py-4 px-4 font-mono text-purple-400 font-bold neon-text-admin"><i data-lucide="zap" class="w-4 h-4 inline mr-1 align-middle"></i> +99.1% SKYROCKET</td>
-                        </tr>
-                        <tr id="adminStock2" class="hidden bg-red-950/10 hover:bg-red-950/20 transition border-l-2 border-red-500">
-                            <td class="py-4 px-4 font-medium"><span class="block text-red-400 font-bold">⚠️ AI-X (SECRET)</span><span class="text-xs text-slate-500">Geheimer Tech-Meme-Fonds</span></td>
-                            <td class="py-4 px-4 font-mono text-slate-300">$13.37</td>
-                            <td class="py-4 px-4 font-mono text-green-400">+24.50%</td>
-                            <td class="py-4 px-4 font-mono text-purple-400 font-bold neon-text-admin"><i data-lucide="zap" class="w-4 h-4 inline mr-1 align-middle"></i> +95.4% INSIDER UP</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+
+        <section class="bg-slate-900/60 border border-slate-800 p-6 rounded-2xl max-w-xl mx-auto">
+            <div class="flex items-center gap-2 mb-4">
+                <i data-lucide="message-square-plus" class="text-purple-400 w-5 h-5"></i>
+                <h2 class="text-lg font-bold">Wünsche & Feedback einreichen</h2>
+            </div>
+            <div class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <input type="email" id="feedbackEmail" placeholder="Deine E-Mail Adresse..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500">
+                    <select id="feedbackType" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-400 focus:outline-none focus:border-purple-500">
+                        <option value="Wunsch">Feature-Wunsch</option>
+                        <option value="Feedback">Allgemeines Feedback</option>
+                        <option value="Support">Support-Anfrage</option>
+                    </select>
+                </div>
+                <textarea id="feedbackText" rows="3" placeholder="Beschreibe deinen Wunsch oder dein Feedback für die App..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-purple-500"></textarea>
+                <button onclick="submitUserFeedback()" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 py-2.5 rounded-xl font-semibold transition cursor-pointer text-sm">Absenden</button>
+                <p id="feedbackSuccess" class="hidden text-xs text-center text-green-400 font-medium">✓ Erfolgreich gesendet! Der System-Admin hat es erhalten.</p>
+            </div>
+        </section>
+
     </main>
 
-    <!-- LOGIN MODAL POPUP -->
     <div id="loginModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex justify-center items-center p-4">
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl max-w-sm w-full neon-border relative">
             <button onclick="toggleLoginModal()" class="absolute top-4 right-4 text-slate-500 hover:text-slate-300 cursor-pointer">
@@ -160,56 +187,135 @@
                     <i data-lucide="shield-alert" class="w-6 h-6"></i>
                 </div>
                 <h3 class="text-xl font-bold text-slate-100">Zentral-Login</h3>
-                <p class="text-xs text-slate-500 mt-1">Nur für autorisierte System-Administratoren</p>
+                <p class="text-xs text-slate-500 mt-1">Autorisierter Zugriff</p>
             </div>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">System-Passwort</label>
+                    <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">System-Passwort (Punkt 7)</label>
                     <input type="password" id="passwordInput" placeholder="••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-slate-200 focus:outline-none focus:border-purple-500 font-mono">
                 </div>
-                <div id="loginError" class="hidden text-xs text-red-400 font-medium">❌ Falsches Passwort. Zugriff verweigert.</div>
-                <button onclick="checkPassword()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2.5 rounded-xl font-semibold transition cursor-pointer shadow-lg shadow-purple-900/20">
-                    Verifizieren
-                </button>
+                <div id="loginError" class="hidden text-xs text-red-400 font-medium">❌ Zugriff verweigert. Passwort inkorrekt.</div>
+                <button onclick="checkPassword()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2.5 rounded-xl font-semibold transition cursor-pointer shadow-lg shadow-purple-900/20">Verifizieren</button>
             </div>
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="mt-16 border-t border-slate-900 bg-slate-950/60 py-8 px-6 text-center text-xs text-slate-600">
-        <div class="max-w-3xl mx-auto space-y-3">
-            <p class="font-bold tracking-wider text-slate-500">DEUTLICHER HAFTUNGSAUSSCHLUSS (DISCLAIMER)</p>
-            <p>Die von dieser KI-gestützten Anwendung bereitgestellten Inhalte, prozentualen Vorhersagen und Analysen dienen ausschließlich zu Informationszwecken und stellen keine Finanz-, Investitions- oder persönliche Anlageberatung dar. Der Handel mit Aktien und Finanzprodukten birgt erhebliche Verlustrisiken bis hin zum Totalverlust des eingesetzten Kapitals. Es gibt keine Garantie für die Richtigkeit oder das Eintreffen der KI-Prognosen.</p>
-            <p class="pt-2 text-slate-700">© 2026 NEXT-GEN AI-PREDICT. Alle Rechte vorbehalten.</p>
-        </div>
+        <p>© 2026 NEXT-GEN AI-PREDICT. Alle Rechte vorbehalten.</p>
     </footer>
 
-    <!-- JAVASCRIPT SYSTEM CONTROLLER -->
     <script>
-        // Icons initialisieren
         lucide.createIcons();
 
-        // Login Modal umschalten (öffnen/schließen)
-        function toggleLoginModal() {
-            const modal = document.getElementById('loginModal');
-            const error = document.getElementById('loginError');
-            const input = document.getElementById('passwordInput');
-            
-            modal.classList.toggle('hidden');
-            error.classList.add('hidden');
-            input.value = '';
-            if(!modal.classList.contains('hidden')) {
-                input.focus();
+        // Lokales Aktien-Array für Suche & Vorschläge (Punkt 1)
+        const stocks = [
+            { id: 'NVDA', name: 'NVIDIA Corp.', price: '$128.45', change: '+3.42%', trend: '+87.5% Up' },
+            { id: 'AAPL', name: 'Apple Inc.', price: '$185.20', change: '-0.12%', trend: '+62.1% Up' },
+            { id: 'TSLA', name: 'Tesla Inc.', price: '$170.50', change: '+1.85%', trend: '-45.8% Down' },
+            { id: 'MSFT', name: 'Microsoft Corp.', price: '$420.10', change: '0.00%', trend: '+74.3% Up' }
+        ];
+
+        // 1. Suche & Vorschläge Logik
+        function handleSearchInput() {
+            const query = document.getElementById('searchInput').value.toUpperCase().trim();
+            const dropdown = document.getElementById('suggestionsDropdown');
+            dropdown.innerHTML = '';
+
+            if (query.length === 0) {
+                dropdown.classList.add('hidden');
+                return;
+            }
+
+            const matches = stocks.filter(s => s.id.includes(query) || s.name.toUpperCase().includes(query));
+
+            if (matches.length > 0) {
+                matches.forEach(s => {
+                    const div = document.createElement('div');
+                    div.className = 'px-4 py-2.5 hover:bg-purple-950/40 text-xs text-slate-300 cursor-pointer flex justify-between items-center transition';
+                    div.innerHTML = `<span class="font-bold text-purple-400">${s.id}</span> <span class="text-slate-500">${s.name}</span>`;
+                    div.onclick = () => {
+                        document.getElementById('searchInput').value = s.id;
+                        dropdown.classList.add('hidden');
+                        filterTable(s.id);
+                    };
+                    dropdown.appendChild(div);
+                });
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
             }
         }
 
-        // Passwort-Prüfung
+        function handleSearchKeyPress(e) {
+            if (e.key === 'Enter') {
+                const query = document.getElementById('searchInput').value.toUpperCase().trim();
+                document.getElementById('suggestionsDropdown').classList.add('hidden');
+                filterTable(query);
+            }
+        }
+
+        function filterTable(query) {
+            const rows = document.querySelectorAll('#stockTableBody tr');
+            rows.forEach(row => {
+                const text = row.innerText.toUpperCase();
+                if (text.includes(query)) {
+                    row.classList.remove('hidden');
+                } else {
+                    row.classList.add('hidden');
+                }
+            });
+        }
+
+        // 3. Weiterleitung zur Detailseite (Punkt 3 & 9)
+        function goToDetails(stockId) {
+            // Leitet weiter zur details.html und übergibt die ID als Parameter im Link
+            window.location.href = `details.html?symbol=${stockId}`;
+        }
+
+        // 5. Gratis Premium vergeben Simulation
+        function grantFreePremium() {
+            const email = document.getElementById('premiumUserEmail').value;
+            if(email) {
+                document.getElementById('premiumSuccessMsg').classList.remove('hidden');
+                document.getElementById('premiumUserEmail').value = '';
+                setTimeout(() => document.getElementById('premiumSuccessMsg').classList.add('hidden'), 4000);
+            }
+        }
+
+        // Kundenfeedback absenden Simulation
+        function submitUserFeedback() {
+            const email = document.getElementById('feedbackEmail').value;
+            const text = document.getElementById('feedbackText').value;
+            const type = document.getElementById('feedbackType').value;
+
+            if (email && text) {
+                // Fügt das Feedback temporär direkt oben im Admin-Bereich hinzu!
+                const adminList = document.getElementById('adminFeedbackList');
+                const newFeedback = document.createElement('div');
+                newFeedback.className = 'text-xs border-b border-slate-900 pb-2 text-red-400';
+                newFeedback.innerHTML = `<span class="font-bold">[${type}] ${email}:</span> "${text}"`;
+                adminList.prepend(newFeedback);
+
+                document.getElementById('feedbackSuccess').classList.remove('hidden');
+                document.getElementById('feedbackText').value = '';
+                document.getElementById('feedbackEmail').value = '';
+                setTimeout(() => document.getElementById('feedbackSuccess').classList.add('hidden'), 4000);
+            }
+        }
+
+        // Login System (Neues Passwort: Arsch8440)
+        function toggleLoginModal() {
+            const modal = document.getElementById('loginModal');
+            document.getElementById('loginError').add ? document.getElementById('loginError').classList.add('hidden') : null;
+            modal.classList.toggle('hidden');
+        }
+
         function checkPassword() {
-            const passwordInput = document.getElementById('passwordInput').value;
+            const input = document.getElementById('passwordInput').value;
             const error = document.getElementById('loginError');
             
-            // HIER kannst du dein Passwort ändern! Aktuell: admin123
-            if (passwordInput === 'admin123') {
+            // Neues Passwort aus Punkt 7
+            if (input === 'Arsch8440') {
                 activateAdminMode();
                 toggleLoginModal();
             } else {
@@ -217,49 +323,32 @@
             }
         }
 
-        // Admin-Modus aktivieren
         function activateAdminMode() {
-            // Dashboard & Badges einblenden
             document.getElementById('adminDashboard').classList.remove('hidden');
             document.getElementById('adminBadge').classList.remove('hidden');
+            document.getElementById('adminStock1').classList.remove('hidden'); // Admin sieht alles (Punkt 8)
             
-            // Geheime Aktien-Zeilen einblenden
-            document.getElementById('adminStock1').classList.remove('hidden');
-            document.getElementById('adminStock2').classList.remove('hidden');
-            
-            // Login-Button anpassen (wird zum "Logout"-Button)
-            const loginBtn = document.getElementById('loginBtn');
-            loginBtn.innerHTML = '<i data-lucide="log-out" class="w-4 h-4"></i> Logout';
-            loginBtn.setAttribute('onclick', 'deactivateAdminMode()');
-            loginBtn.classList.replace('bg-slate-800', 'bg-red-950/40');
-            loginBtn.classList.replace('hover:bg-slate-700', 'hover:bg-red-900/40');
-            loginBtn.classList.add('border', 'border-red-900/60', 'text-red-400');
-
-            // Icons neu laden, damit das Logout- und Schild-Icon angezeigt werden
+            const btn = document.getElementById('loginBtn');
+            btn.innerHTML = '<i data-lucide="log-out" class="w-4 h-4"></i> Logout';
+            btn.setAttribute('onclick', 'deactivateAdminMode()');
             lucide.createIcons();
         }
 
-        // Admin-Modus deaktivieren (Logout)
         function deactivateAdminMode() {
-            // Alles wieder verstecken
             document.getElementById('adminDashboard').classList.add('hidden');
             document.getElementById('adminBadge').classList.add('hidden');
             document.getElementById('adminStock1').classList.add('hidden');
-            document.getElementById('adminStock2').classList.add('hidden');
             
-            // Button zurücksetzen
-            const loginBtn = document.getElementById('loginBtn');
-            loginBtn.innerHTML = '<i data-lucide="lock" class="w-4 h-4"></i> Admin Login';
-            loginBtn.setAttribute('onclick', 'toggleLoginModal()');
-            loginBtn.className = "bg-slate-800 hover:bg-slate-700 text-slate-200 px-4 py-2 rounded-lg font-semibold transition cursor-pointer flex items-center gap-2";
-            
+            const btn = document.getElementById('loginBtn');
+            btn.innerHTML = '<i data-lucide="lock" class="w-4 h-4"></i> Admin Login';
+            btn.setAttribute('onclick', 'toggleLoginModal()');
             lucide.createIcons();
         }
 
-        // Enter-Taste im Passwort-Feld abfangen
-        document.getElementById('passwordInput').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                checkPassword();
+        // Klick außerhalb des Dropdowns schließt es
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('#searchInput')) {
+                document.getElementById('suggestionsDropdown').classList.add('hidden');
             }
         });
     </script>
