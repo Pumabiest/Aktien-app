@@ -441,14 +441,10 @@
                 document.getElementById('suggestionsDropdown').classList.add('hidden');
             }
         });
-    </script>
-<!-- Firebase Module laden & initialisieren -->
-<script type="module">
-  // Die benötigten Firebase-Funktionen direkt von Google laden (kostenlos)
+   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-  // Deine persönlichen Zugangsdaten
   const firebaseConfig = {
     apiKey: "AIzaSyAKPlR7GLDPw8y_-UKuiSEFOl_zrw3rtqE",
     authDomain: "aktien-app-cccb6.firebaseapp.com",
@@ -459,49 +455,31 @@
     measurementId: "G-GG4F5E4K0Z"
   };
 
-  // Verbindung zu Firebase herstellen
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  console.log("Firebase ist erfolgreich verbunden!");
-
-  // REGISTRIEREN (Neuen User anlegen)
-  window.registerUser = function(email, password) {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        alert("Registrierung erfolgreich! Willkommen: " + userCredential.user.email);
-      })
-      .catch((error) => {
-        alert("Fehler bei Registrierung: " + error.message);
-      });
+  // BRÜCKE: Macht die Funktionen für das HTML-Modal global verfügbar
+  window.handleLogin = () => {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => { alert("Login erfolgreich!"); document.getElementById('loginModal').classList.add('hidden'); })
+        .catch((error) => alert("Login fehlgeschlagen: " + error.message));
   };
 
-  // EINLOGGEN (Bestehenden User anmelden)
-  window.loginUser = function(email, password) {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        alert("Erfolgreich eingeloggt als: " + userCredential.user.email);
-      })
-      .catch((error) => {
-        alert("Login fehlgeschlagen: " + error.message);
-      });
+  window.handleRegister = () => {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => alert("Registrierung erfolgreich!"))
+        .catch((error) => alert("Fehler: " + error.message));
   };
 
-  // AUSLOGGEN
-  window.logoutUser = function() {
-    signOut(auth).then(() => {
-      alert("Erfolgreich ausgeloggt.");
-    });
+  window.logoutUser = () => {
+      signOut(auth).then(() => alert("Erfolgreich ausgeloggt."));
   };
 
-  // PRÜFEN: Ist gerade jemand eingeloggt?
   onAuthStateChanged(auth, (user) => {
-    if (user) {
-      console.log("User ist angemeldet:", user.email);
-    } else {
-      console.log("Kein User angemeldet.");
-    }
+    console.log(user ? "User angemeldet: " + user.email : "Kein User angemeldet.");
   });
 </script>
-</body>
-</html>
