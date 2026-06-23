@@ -7,10 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
     <style>
-        body {
-            background-color: #0b0f19;
-            color: #f3f4f6;
-        }
+        body { background-color: #0b0f19; color: #f3f4f6; }
     </style>
 </head>
 <body class="p-6 font-sans">
@@ -21,36 +18,31 @@
                 <h1 class="text-3xl font-bold text-white tracking-wide">Global Stock Tracker</h1>
                 <p class="text-gray-400 text-sm">Echtzeit-Übersicht weltweiter Aktien & Indizes</p>
             </div>
-            
             <div class="flex gap-2">
-                <input type="text" id="tickerInput" placeholder="Z.B. AAPL, TSLA, ^FTSE, DAX..." 
+                <input type="text" id="tickerInput" placeholder="Z.B. AAPL, TSLA, ^FTSE..." 
                        class="bg-gray-800 text-white px-4 py-2 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500 w-64 uppercase">
-                <button onclick="changeTicker()" 
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
+                <button onclick="changeTicker()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
                     Suchen
                 </button>
             </div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            
-            <div class="lg:col-span-2 bg-gray-900/50 border border-gray-800 rounded-xl p-4 backdrop-blur-sm">
+            <div class="lg:col-span-2 bg-gray-900/50 border border-gray-800 rounded-xl p-4">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 id="currentTickerTitle" class="text-xl font-semibold text-white">FTSE 100 (^FTSE)</h2>
+                    <h2 id="currentTickerTitle" class="text-xl font-semibold text-white">Apple (AAPL)</h2>
                     <span id="currentPrice" class="text-lg font-bold px-3 py-1 rounded bg-gray-800">Lade...</span>
                 </div>
                 <div id="chartContainer" class="w-full h-[400px]"></div>
             </div>
-
-            <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 backdrop-blur-sm">
-                <h2 class="text-xl font-semibold text-white mb-4">Beliebte Märkte</h2>
+            <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-4">
+                <h2 class="text-xl font-semibold text-white mb-4">Beliebte Märkte (Klicken zum Laden)</h2>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="border-b border-gray-800 text-gray-400 text-sm">
                                 <th class="pb-2">Symbol</th>
                                 <th class="pb-2 text-right">Preis</th>
-                                <th class="pb-2 text-right">Änderung</th>
                             </tr>
                         </thead>
                         <tbody id="watchlistBody" class="divide-y divide-gray-800/50 text-sm">
@@ -58,92 +50,66 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
         let chart;
         let candlestickSeries;
-        let currentTicker = '^FTSE'; // Start-Ticker (FTSE 100 wie auf deinem Bild)
+        let currentTicker = 'AAPL'; // Start mit AAPL (stabiler als Indizes beim ersten Laden)
+        
+        // CORS Proxy, um die Blockade zu umgehen
+        const PROXY = "https://corsproxy.io/?";
 
-        // 1. Chart Initialisierung (TradingView Lightweight Charts)
         const container = document.getElementById('chartContainer');
         
         function initChart() {
             chart = LightweightCharts.createChart(container, {
-                layout: {
-                    background: { type: 'solid', color: '#111827' },
-                    textColor: '#9ca3af',
-                },
-                grid: {
-                    vertLines: { color: '#1f2937' },
-                    horzLines: { color: '#1f2937' },
-                },
-                crosshair: {
-                    mode: LightweightCharts.CrosshairMode.Normal,
-                },
-                rightPriceScale: {
-                    borderColor: '#374151',
-                },
-                timeScale: {
-                    borderColor: '#374151',
-                    timeVisible: true,
-                },
+                layout: { background: { type: 'solid', color: '#111827' }, textColor: '#9ca3af' },
+                grid: { vertLines: { color: '#1f2937' }, horzLines: { color: '#1f2937' } },
+                timeScale: { borderColor: '#374151', timeVisible: true },
             });
-
             candlestickSeries = chart.addCandlestickSeries({
-                upColor: '#22c55e',       // Grün für Aufstieg
-                downColor: '#ef4444',     // Rot für Fall
-                borderDownColor: '#ef4444',
-                borderUpColor: '#22c55e',
-                wickDownColor: '#ef4444',
-                wickUpColor: '#22c55e',
+                upColor: '#22c55e', downColor: '#ef4444',
+                borderDownColor: '#ef4444', borderUpColor: '#22c55e',
+                wickDownColor: '#ef4444', wickUpColor: '#22c55e',
             });
-
-            // Macht den Chart responsiv
             const resizeObserver = new ResizeObserver(entries => {
                 if (entries.length === 0) return;
-                const { width, height } = entries[0].contentRect;
-                chart.resize(width, height);
+                chart.resize(entries[0].contentRect.width, entries[0].contentRect.height);
             });
             resizeObserver.observe(container);
         }
 
-        // 2. Daten von Yahoo Finance holen (über einen freien JSON-Proxy)
         async function fetchStockData(ticker) {
             try {
-                // Wir holen uns die Daten der letzten 30 Tage im 1-Stunden-Takt (wie auf deinem Bild "Hourly")
-                const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?range=30d&interval=1h`);
+                const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?range=7d&interval=30m`;
+                const response = await fetch(PROXY + encodeURIComponent(targetUrl));
                 const data = await response.json();
                 
                 const result = data.chart.result[0];
                 const timestamps = result.timestamp;
                 const quotes = result.indicators.quote[0];
                 
-                // Formatierung für den Chart
                 const chartData = timestamps.map((time, index) => ({
-                    time: time, // Unix Timestamp
+                    time: time,
                     open: quotes.open[index],
                     high: quotes.high[index],
                     low: quotes.low[index],
                     close: quotes.close[index]
-                })).filter(d => d.open && d.high && d.low && d.close); // Fehlerhafte Daten filtern
+                })).filter(d => d.open && d.high && d.low && d.close);
 
-                // Aktuellen Preis anzeigen
                 const latestPrice = chartData[chartData.length - 1].close.toFixed(2);
-                const currency = result.meta.currency || '';
-                document.getElementById('currentPrice').innerText = `${latestPrice} ${currency}`;
+                document.getElementById('currentPrice').innerText = `${latestPrice} USD`;
 
                 candlestickSeries.setData(chartData);
                 chart.timeScale().fitContent();
             } catch (error) {
-                console.error("Fehler beim Laden der Daten:", error);
-                alert("Ticker-Symbol nicht gefunden oder API-Limit erreicht.");
+                console.error(error);
+                document.getElementById('currentPrice').innerText = "Fehler";
             }
         }
 
-        // 3. Suchfunktion ausführen
         function changeTicker() {
             const input = document.getElementById('tickerInput').value.trim().toUpperCase();
             if (input) {
@@ -153,62 +119,35 @@
             }
         }
 
-        // Enter-Taste in der Suche erlauben
         document.getElementById('tickerInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') changeTicker();
         });
 
-        // 4. Watchlist Tabelle mit Live-Daten befüllen
-        const popularTickers = ['^FTSE', '^GDAXI', 'AAPL', 'TSLA', 'MSFT', 'AMZN'];
+        // Vereinfachte Watchlist, die weniger fehleranfällig ist
+        const popularTickers = ['AAPL', 'TSLA', 'MSFT', 'AMZN', 'GOOG'];
 
-        async function loadWatchlist() {
+        function loadWatchlist() {
             const tbody = document.getElementById('watchlistBody');
-            tbody.innerHTML = ''; // Leeren
-
-            for (let ticker of popularTickers) {
-                try {
-                    const response = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?range=2d&interval=1d`);
-                    const data = await response.json();
-                    const meta = data.chart.result[0].meta;
-                    
-                    const price = meta.regularMarketPrice.toFixed(2);
-                    const prevClose = meta.chartPreviousClose;
-                    const change = (((price - prevClose) / prevClose) * 100).toFixed(2);
-                    const isPositive = change >= 0;
-
-                    const row = document.createElement('tr');
-                    row.className = "hover:bg-gray-800/30 cursor-pointer transition";
-                    row.onclick = () => {
-                        currentTicker = ticker;
-                        document.getElementById('currentTickerTitle').innerText = `${ticker}`;
-                        fetchStockData(ticker);
-                    };
-
-                    row.innerHTML = `
-                        <td class="py-3 font-medium text-white">${ticker}</td>
-                        <td class="py-3 text-right font-mono">${price}</td>
-                        <td class="py-3 text-right font-mono ${isPositive ? 'text-green-500' : 'text-red-500'}">
-                            ${isPositive ? '+' : ''}${change}%
-                        </td>
-                    `;
-                    tbody.appendChild(row);
-                } catch (e) {
-                    console.error(e);
-                }
-            }
+            tbody.innerHTML = '';
+            popularTickers.forEach(ticker => {
+                const row = document.createElement('tr');
+                row.className = "hover:bg-gray-800/30 cursor-pointer transition";
+                row.onclick = () => {
+                    currentTicker = ticker;
+                    document.getElementById('currentTickerTitle').innerText = `${ticker}`;
+                    fetchStockData(ticker);
+                };
+                row.innerHTML = `
+                    <td class="py-3 font-medium text-white">${ticker}</td>
+                    <td class="py-3 text-right text-gray-400">Klicken zum Laden</td>
+                `;
+                tbody.appendChild(row);
+            });
         }
 
-        // App starten
         initChart();
         fetchStockData(currentTicker);
         loadWatchlist();
-
-        // Alle 60 Sekunden aktualisieren
-        setInterval(() => {
-            fetchStockData(currentTicker);
-            loadWatchlist();
-        }, 60000);
-
     </script>
 </body>
 </html>
