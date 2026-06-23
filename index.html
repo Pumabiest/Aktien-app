@@ -12,109 +12,89 @@
         }
     </style>
 </head>
-<body class="p-6 font-sans">
+<body class="p-4 md:p-6 font-sans">
 
-    <div class="max-w-7xl mx-auto">
-        <header class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div class="max-w-[1600px] mx-auto">
+        <header class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gray-900/40 p-4 rounded-xl border border-gray-800">
             <div>
-                <h1 class="text-3xl font-bold text-white tracking-wide">Global Stock Tracker</h1>
-                <p class="text-gray-400 text-sm">Echtzeit-Übersicht weltweiter Aktien & Indizes</p>
+                <h1 class="text-2xl md:text-3xl font-bold text-white tracking-wide">Global Stock Tracker</h1>
+                <p class="text-gray-400 text-xs md:text-sm">Globale Echtzeitdaten & Großansicht</p>
             </div>
             
-            <div class="flex gap-2">
-                <input type="text" id="tickerInput" placeholder="Z.B. AAPL, TSLA, DAX..." 
-                       class="bg-gray-800 text-white px-4 py-2 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500 w-64 uppercase">
+            <div class="flex gap-2 w-full sm:w-auto">
+                <input type="text" id="tickerInput" placeholder="Z.B. AAPL, TSLA, BTCUSDT..." 
+                       class="bg-gray-800 text-white px-4 py-2 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500 flex-grow sm:w-80 uppercase font-semibold">
                 <button onclick="changeTicker()" 
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition shrink-0">
                     Suchen
                 </button>
             </div>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            
-            <div class="lg:col-span-3 bg-gray-900/50 border border-gray-800 rounded-xl p-4 backdrop-blur-sm">
-                <div class="tradingview-widget-container" style="height:500px; width:100%">
-                    <div id="tradingview_chart" style="height:100%; width:100%"></div>
-                </div>
+        <div class="w-full bg-gray-900/50 border border-gray-800 rounded-xl p-2 md:p-4 mb-6">
+            <div class="tradingview-widget-container" style="height: 600px; width: 100%;">
+                <div id="tradingview_chart" style="height: 100%; width: 100%;"></div>
             </div>
+        </div>
 
-            <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-4 backdrop-blur-sm flex flex-col justify-between">
-                <div>
-                    <h2 class="text-xl font-semibold text-white mb-4">Schnellauswahl</h2>
-                    <p class="text-xs text-gray-400 mb-4">Klicke auf einen Markt, um den Live-Chart zu laden:</p>
-                    
-                    <div class="space-y-2">
-                        <button onclick="loadMarket('NASDAQ:AAPL')" class="w-full text-left bg-gray-800/50 hover:bg-gray-800 p-3 rounded-lg border border-gray-700/50 transition flex justify-between items-center">
-                            <span class="font-medium text-white">Apple (AAPL)</span>
-                            <span class="text-xs text-gray-400 font-mono">NASDAQ</span>
-                        </button>
-                        <button onclick="loadMarket('NASDAQ:TSLA')" class="w-full text-left bg-gray-800/50 hover:bg-gray-800 p-3 rounded-lg border border-gray-700/50 transition flex justify-between items-center">
-                            <span class="font-medium text-white">Tesla (TSLA)</span>
-                            <span class="text-xs text-gray-400 font-mono">NASDAQ</span>
-                        </button>
-                        <button onclick="loadMarket('XETR:DAX')" class="w-full text-left bg-gray-800/50 hover:bg-gray-800 p-3 rounded-lg border border-gray-700/50 transition flex justify-between items-center">
-                            <span class="font-medium text-white">DAX Index</span>
-                            <span class="text-xs text-gray-400 font-mono">XETR</span>
-                        </button>
-                        <button onclick="loadMarket('BINANCE:BTCUSDT')" class="w-full text-left bg-gray-800/50 hover:bg-gray-800 p-3 rounded-lg border border-gray-700/50 transition flex justify-between items-center">
-                            <span class="font-medium text-white">Bitcoin (BTC)</span>
-                            <span class="text-xs text-gray-400 font-mono">Crypto</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="mt-6 pt-4 border-t border-gray-800 text-xs text-gray-500 text-center">
-                    Daten bereitgestellt durch TradingView Live-Feeds.
-                </div>
+        <div class="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
+            <p class="text-xs text-gray-400 mb-3 font-medium uppercase tracking-wider">Beliebte Märkte direkt laden:</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <button onclick="loadMarket('NASDAQ:AAPL')" class="bg-gray-800/60 hover:bg-gray-800 border border-gray-700/50 p-3 rounded-lg text-center text-sm font-semibold text-white transition">
+                    Apple (AAPL)
+                </button>
+                <button onclick="loadMarket('NASDAQ:TSLA')" class="bg-gray-800/60 hover:bg-gray-800 border border-gray-700/50 p-3 rounded-lg text-center text-sm font-semibold text-white transition">
+                    Tesla (TSLA)
+                </button>
+                <button onclick="loadMarket('XETR:DAX')" class="bg-gray-800/60 hover:bg-gray-800 border border-gray-700/50 p-3 rounded-lg text-center text-sm font-semibold text-white transition">
+                    DAX Index
+                </button>
+                <button onclick="loadMarket('BINANCE:BTCUSDT')" class="bg-gray-800/60 hover:bg-gray-800 border border-gray-700/50 p-3 rounded-lg text-center text-sm font-semibold text-white transition">
+                    Bitcoin (BTC)
+                </button>
             </div>
-
         </div>
     </div>
 
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script type="text/javascript">
         
-        // Funktion, die den Chart mit einem bestimmten Symbol zeichnet
+        // Zentrale Funktion für den Chart-Aufbau
         function renderChart(symbolName) {
             new TradingView.widget({
                 "width": "100%",
                 "height": "100%",
                 "symbol": symbolName,
-                "interval": "H",            // "H" steht für Hourly (Stunden-Kerzen wie auf deinem Wunschbild)
+                "interval": "D",            // "D" für Tages-Echtzeitdaten
                 "timezone": "Europe/Berlin",
-                "theme": "dark",            // Perfekter schwarzer Hintergrund
-                "style": "1",               // 1 steht für Candlesticks (Kerzen-Chart)
+                "theme": "dark",            // Cleaner Black-Mode
+                "style": "2",               // "2" erzwingt den reinen LINIEN-CHART statt Kerzen
                 "locale": "de",
                 "enable_publishing": false,
-                "hide_side_toolbar": false, // Zeigt Werkzeuge zum Zeichnen links an
-                "allow_symbol_change": true,
+                "hide_side_toolbar": false, // Werkzeuge bleiben für dich links verfügbar
+                "allow_symbol_change": true, // Erlaubt die Suche direkt im Chart oben links
                 "container_id": "tradingview_chart"
             });
         }
 
-        // Starte die Seite standardmäßig mit Apple
+        // Standard-Start mit Apple
         renderChart("NASDAQ:AAPL");
 
-        // Suchfunktion für die Leiste oben
+        // Suchfunktion oben rechts
         function changeTicker() {
             const input = document.getElementById('tickerInput').value.trim().toUpperCase();
             if (input) {
-                // Wenn kein Doppelpunkt eingegeben wurde, suchen wir standardmäßig auf den US-Märkten
-                if (!input.includes(':')) {
-                    renderChart("NASDAQ:" + input);
-                } else {
-                    renderChart(input);
-                }
+                // Falls kein Markt (wie NASDAQ:) übergeben wird, sucht er global danach
+                renderChart(input);
             }
         }
 
-        // Funktion für die Klick-Tabelle rechts
+        // Klick-Aktion für die unteren Buttons
         function loadMarket(symbol) {
             renderChart(symbol);
         }
 
-        // Enter-Taste aktivieren
+        // Enter-Taste fängt die Suche ab
         document.getElementById('tickerInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') changeTicker();
         });
