@@ -3,55 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Live Stock Dashboard</title>
+    <title>Global Live Stock Dashboard Pro</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
-            background-color: #0b0f19;
+            background-color: #060913;
             color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        /* Style für den ziehbaren Balken */
+        .resizer {
+            width: 8px;
+            cursor: col-resize;
+            background: linear-gradient(to bottom, transparent, #1e293b, transparent);
+            transition: background 0.2s;
+        }
+        .resizer:hover, .resizer:active {
+            background: #3b82f6;
         }
     </style>
 </head>
-<body class="p-4 md:p-6 font-sans">
+<body class="p-4 font-sans selection:bg-blue-600/30">
 
-    <div class="max-w-[1600px] mx-auto">
-        <header class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gray-900/40 p-4 rounded-xl border border-gray-800">
+    <div class="w-full mx-auto max-w-[1920px]">
+        
+        <header class="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-gray-950/80 p-4 rounded-xl border border-gray-800/80 backdrop-blur-md">
             <div>
-                <h1 class="text-2xl md:text-3xl font-bold text-white tracking-wide">Global Stock Tracker</h1>
-                <p class="text-gray-400 text-xs md:text-sm">Globale Echtzeitdaten & Großansicht</p>
+                <h1 class="text-2xl font-bold text-white tracking-wide flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    GLOBAL STOCK MATRIX v2.0
+                </h1>
+                <p class="text-gray-500 text-xs font-mono">STATUS: CONNECTED // REALTIME_FEED_ACTIVE</p>
             </div>
             
             <div class="flex gap-2 w-full sm:w-auto">
-                <input type="text" id="tickerInput" placeholder="Z.B. AAPL, TSLA, BTCUSDT..." 
-                       class="bg-gray-800 text-white px-4 py-2 rounded-lg border border-gray-700 focus:outline-none focus:border-blue-500 flex-grow sm:w-80 uppercase font-semibold">
+                <input type="text" id="tickerInput" placeholder="Z.B. MRVL, AAPL, TSLA..." 
+                       class="bg-gray-950 text-green-400 px-4 py-2 rounded-lg border border-gray-800 focus:outline-none focus:border-blue-500 flex-grow sm:w-80 uppercase font-mono tracking-wider">
                 <button onclick="changeTicker()" 
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition shrink-0">
-                    Suchen
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium font-mono transition">
+                    EXECUTE
                 </button>
             </div>
         </header>
 
-        <div class="w-full bg-gray-900/50 border border-gray-800 rounded-xl p-2 md:p-4 mb-6">
-            <div class="tradingview-widget-container" style="height: 600px; width: 100%;">
-                <div id="tradingview_chart" style="height: 100%; width: 100%;"></div>
+        <div id="workspace" class="flex w-full min-h-[650px] gap-1 bg-gray-950/30 border border-gray-900 rounded-xl p-2 overflow-hidden">
+            
+            <div id="chartPanel" class="min-w-[400px] flex flex-col p-2" style="width: 70%;">
+                <div class="w-full h-full bg-gray-950/80 border border-gray-800 rounded-xl p-2">
+                    <div class="tradingview-widget-container h-full w-full">
+                        <div id="tradingview_chart" class="h-full w-full"></div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
-            <p class="text-xs text-gray-400 mb-3 font-medium uppercase tracking-wider">Beliebte Märkte direkt laden:</p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <button onclick="loadMarket('NASDAQ:AAPL')" class="bg-gray-800/60 hover:bg-gray-800 border border-gray-700/50 p-3 rounded-lg text-center text-sm font-semibold text-white transition">
-                    Apple (AAPL)
-                </button>
-                <button onclick="loadMarket('NASDAQ:TSLA')" class="bg-gray-800/60 hover:bg-gray-800 border border-gray-700/50 p-3 rounded-lg text-center text-sm font-semibold text-white transition">
-                    Tesla (TSLA)
-                </button>
-                <button onclick="loadMarket('XETR:DAX')" class="bg-gray-800/60 hover:bg-gray-800 border border-gray-700/50 p-3 rounded-lg text-center text-sm font-semibold text-white transition">
-                    DAX Index
-                </button>
-                <button onclick="loadMarket('BINANCE:BTCUSDT')" class="bg-gray-800/60 hover:bg-gray-800 border border-gray-700/50 p-3 rounded-lg text-center text-sm font-semibold text-white transition">
-                    Bitcoin (BTC)
-                </button>
+            <div id="dragLine" class="resizer self-stretch rounded"></div>
+
+            <div id="dataPanel" class="min-w-[300px] flex flex-col gap-3 p-2 overflow-y-auto" style="width: 30%;">
+                
+                <div class="bg-gray-950/90 border border-gray-800 rounded-xl p-4 font-mono text-xs">
+                    <h2 class="text-green-400 font-bold mb-3 uppercase tracking-wider border-b border-gray-800 pb-1">// TECHNICAL_DATA_STREAM</h2>
+                    <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                        {
+                          "interval": "1m",
+                          "width": "100%",
+                          "isTransparent": true,
+                          "height": "320",
+                          "symbol": "NASDAQ:MRVL",
+                          "showIntervalTabs": true,
+                          "displayMode": "single",
+                          "locale": "de",
+                          "colorTheme": "dark"
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="bg-gray-950/90 border border-gray-800 rounded-xl p-4 font-mono text-xs">
+                    <h2 class="text-blue-400 font-bold mb-2 uppercase tracking-wider border-b border-gray-800 pb-1">// MARKET_METRICS</h2>
+                    <div class="tradingview-widget-container">
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
+                        {
+                          "symbol": "NASDAQ:MRVL",
+                          "width": "100%",
+                          "locale": "de",
+                          "colorTheme": "dark",
+                          "isTransparent": true
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="bg-gray-950/90 border border-gray-800 rounded-xl p-4">
+                    <h2 class="text-gray-400 font-mono text-xs font-bold mb-3 uppercase tracking-wider">// SYSTEM_SHORTCUTS</h2>
+                    <div class="grid grid-cols-1 gap-2">
+                        <button onclick="loadMarket('NASDAQ:MRVL')" class="w-full text-left bg-blue-950/20 hover:bg-blue-900/40 border border-blue-800/40 p-3 rounded-lg transition flex justify-between items-center">
+                            <span class="font-semibold text-blue-400 font-mono text-sm">Marvell Tech (MRVL)</span>
+                            <span class="text-xs bg-blue-900/30 text-blue-300 px-2 py-0.5 rounded border border-blue-700/30">NASDAQ</span>
+                        </button>
+                        <button onclick="loadMarket('NASDAQ:AAPL')" class="w-full text-left bg-gray-900/50 hover:bg-gray-900 p-3 rounded-lg border border-gray-800 transition flex justify-between items-center">
+                            <span class="font-medium text-white font-mono text-sm">Apple (AAPL)</span>
+                            <span class="text-xs text-gray-500 font-mono">NASDAQ</span>
+                        </button>
+                        <button onclick="loadMarket('NASDAQ:TSLA')" class="w-full text-left bg-gray-900/50 hover:bg-gray-900 p-3 rounded-lg border border-gray-800 transition flex justify-between items-center">
+                            <span class="font-medium text-white font-mono text-sm">Tesla (TSLA)</span>
+                            <span class="text-xs text-gray-500 font-mono">NASDAQ</span>
+                        </button>
+                        <button onclick="loadMarket('XETR:DAX')" class="w-full text-left bg-gray-900/50 hover:bg-gray-900 p-3 rounded-lg border border-gray-800 transition flex justify-between items-center">
+                            <span class="font-medium text-white font-mono text-sm">DAX Index</span>
+                            <span class="text-xs text-gray-500 font-mono">XETR</span>
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -59,44 +124,81 @@
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script type="text/javascript">
         
-        // Zentrale Funktion für den Chart-Aufbau
+        let currentSymbol = "NASDAQ:MRVL"; // Marvell als Standard Start-Aktie!
+
         function renderChart(symbolName) {
+            currentSymbol = symbolName;
             new TradingView.widget({
                 "width": "100%",
                 "height": "100%",
                 "symbol": symbolName,
-                "interval": "D",            // "D" für Tages-Echtzeitdaten
+                "interval": "D",
                 "timezone": "Europe/Berlin",
-                "theme": "dark",            // Cleaner Black-Mode
-                "style": "2",               // "2" erzwingt den reinen LINIEN-CHART statt Kerzen
+                "theme": "dark",
+                "style": "2", // Sauberer Linien-Chart voreingestellt
                 "locale": "de",
                 "enable_publishing": false,
-                "hide_side_toolbar": false, // Werkzeuge bleiben für dich links verfügbar
-                "allow_symbol_change": true, // Erlaubt die Suche direkt im Chart oben links
+                "hide_side_toolbar": false,
+                "allow_symbol_change": true,
                 "container_id": "tradingview_chart"
             });
         }
 
-        // Standard-Start mit Apple
-        renderChart("NASDAQ:AAPL");
+        // Starten mit Marvell Technology
+        renderChart(currentSymbol);
 
-        // Suchfunktion oben rechts
         function changeTicker() {
             const input = document.getElementById('tickerInput').value.trim().toUpperCase();
             if (input) {
-                // Falls kein Markt (wie NASDAQ:) übergeben wird, sucht er global danach
                 renderChart(input);
             }
         }
 
-        // Klick-Aktion für die unteren Buttons
         function loadMarket(symbol) {
             renderChart(symbol);
         }
 
-        // Enter-Taste fängt die Suche ab
         document.getElementById('tickerInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') changeTicker();
+        });
+
+        // --- CODE FÜR DIE BERÜHRUNGS- UND ZIEHBARE TABELLE ---
+        const workspace = document.getElementById('workspace');
+        const chartPanel = document.getElementById('chartPanel');
+        const dataPanel = document.getElementById('dataPanel');
+        const dragLine = document.getElementById('dragLine');
+
+        let isDragging = false;
+
+        dragLine.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none'; // Verhindert Textmarkierung beim Ziehen
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            
+            const workspaceRect = workspace.getBoundingClientRect();
+            const currentX = e.clientX - workspaceRect.left;
+            
+            // Berechne die neue Prozentverteilung
+            let chartWidthPercent = (currentX / workspaceRect.width) * 100;
+            
+            // Grenzen setzen, damit keine Spalte komplett verschwindet (zwischen 20% und 85%)
+            if (chartWidthPercent < 20) chartWidthPercent = 20;
+            if (chartWidthPercent > 85) chartWidthPercent = 85;
+            
+            chartPanel.style.width = `${chartWidthPercent}%`;
+            dataPanel.style.width = `${100 - chartWidthPercent}%`;
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                document.body.style.cursor = 'default';
+                document.body.style.userSelect = 'auto';
+            }
         });
     </script>
 </body>
